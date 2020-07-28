@@ -139,7 +139,7 @@ else
 	port_dec=$(printf "%04d" $(echo "ibase=2;${port_bin:4}"|bc))
 	for i in 1; do
 	
-		# set calculated port as port variable to add to qbittorrent config 
+		# set calculated port as port variable to add to config 
 		VPN_INCOMING_PORT=$i$port_dec
 	done
 	
