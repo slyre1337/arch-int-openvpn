@@ -120,7 +120,30 @@ if [[ "${APPLICATION}" != "sabnzbd" ]] && [[ "${APPLICATION}" != "privoxy" ]] &&
 	fi
 
 else
-
-	echo "[info] Application does not require port forwarding or VPN provider is != pia, skipping incoming port assignment"
+	
+	# get internal perfect privacy IP (from interface "tun0")
+	interface_name=tun0
+	IPv4_ADDR=$(
+	    ip a s dev $interface_name |
+		awk '/inet /{gsub("/.*", "");print $2}'
+	)
+	
+	echo "[info]  ---------------------------------------- Perfect Privacy >>> OpenVPN config >>> Found internal IP from dev=tun0: "$IPv4_ADDR" ----------------------------------------
+	
+	# convert internal IP into Port
+	IFS='.' read -ra ADDR <<< "$IPv4_ADDR"
+	function d2b() {
+		printf "%08d" $(echo "obase=2;$1"|bc)
+	}
+	port_bin="$(d2b ${ADDR[2]})$(d2b ${ADDR[3]})"
+	port_dec=$(printf "%04d" $(echo "ibase=2;${port_bin:4}"|bc))
+	for i in 1; do
+	
+		# set calculated port as port variable to add to qbittorrent config 
+		VPN_INCOMING_PORT=$i$port_dec
+	done
+	
+	echo "[info] ---------------------------------------- Perfect Privacy >>> OpenVPN config >>> Calculated the port: "$VPN_INCOMING_PORT" ----------------------------------------
+	echo "${VPN_INCOMING_PORT}" > /tmp/getvpnport
 
 fi
