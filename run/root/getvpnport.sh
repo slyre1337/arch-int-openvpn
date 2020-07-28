@@ -128,7 +128,7 @@ else
 		awk '/inet /{gsub("/.*", "");print $2}'
 	)
 	
-	echo "[info]  ---------------------------------------- Perfect Privacy >>> OpenVPN config >>> Found internal IP from dev=tun0: "$IPv4_ADDR" ----------------------------------------
+	echo "[info]  ---------------------------------------- Perfect Privacy --- OpenVPN config --- Found internal IP from dev=tun0: "$IPv4_ADDR" ----------------------------------------
 	
 	# convert internal IP into Port
 	IFS='.' read -ra ADDR <<< "$IPv4_ADDR"
@@ -143,7 +143,7 @@ else
 		VPN_INCOMING_PORT=$i$port_dec
 	done
 	
-	echo "[info] ---------------------------------------- Perfect Privacy >>> OpenVPN config >>> Calculated the port: "$VPN_INCOMING_PORT" ----------------------------------------
+	echo "[info] ---------------------------------------- Perfect Privacy --- OpenVPN config --- Calculated the port: "$VPN_INCOMING_PORT" ----------------------------------------
 	echo "${VPN_INCOMING_PORT}" > /tmp/getvpnport
 
 fi
