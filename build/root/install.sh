@@ -35,7 +35,7 @@ fi
 ####
 
 # define pacman packages
-pacman_packages="kmod openvpn privoxy bind-tools gnu-netcat ipcalc"
+pacman_packages="kmod openvpn privoxy bind-tools gnu-netcat ipcalc bc"
 
 # install pre-reqs
 pacman -S --needed $pacman_packages --noconfirm
